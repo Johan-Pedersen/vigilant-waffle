@@ -1,3 +1,3 @@
 "# vigilant-waffle" 
-"# vigilant-waffle" 
-"# Algoritmer" 
+
+This repo is for my own projects
