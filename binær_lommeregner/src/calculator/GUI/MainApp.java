@@ -1,7 +1,5 @@
 package calculator.GUI;
 
-import java.util.ArrayList;
-
 import calculator.Controller.Controller;
 import javafx.application.Application;
 import javafx.geometry.Insets;

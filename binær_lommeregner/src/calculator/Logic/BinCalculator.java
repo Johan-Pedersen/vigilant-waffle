@@ -113,13 +113,6 @@ public class BinCalculator{
  		StringBuilder sb = new StringBuilder();
  		long first = firstNum, second = secondNum;
  		
- 		//Måden det bliver regnet ud på skal det første tal være størst, 
- 		//og da rækkefølgen er ligegyldig når man ganger, kan man bare bytte om på dem
- 		if(firstNum < secondNum) {
- 			first = secondNum;
- 			second = first;
- 		}
- 		
  		long total = 0;		
 		StringBuilder zeros = new StringBuilder();
 		long count = 0;
