@@ -35,14 +35,12 @@ public class MainApp extends Application{
 		
 	}
 
+	
 	private TextField txfResultBin, txfNum1Bin, txfNum2Bin, txfNum1Dec, txfNum2Dec, txfResultDec;
 	private Label lbResultBin, lbResultDec, lbBin, lbDec; 
 	private Button btnAdd, btnSub, btnMulti, btnHistory;
 	
-	
 	private void setTextFields(String result) {
-		
-		
 		txfNum1Dec.setText("" +controller.convertBase2To10(txfNum1Bin.getText()));
 		txfNum2Dec.setText("" +controller.convertBase2To10(txfNum2Bin.getText()));
 		
@@ -50,8 +48,8 @@ public class MainApp extends Application{
 		txfResultBin.setText(result);
 	}
 	
-	
 	private void initContent(GridPane pane) {
+		// TODO Auto-generated method stub
 		pane.setGridLinesVisible(false);
 		pane.setPadding(new Insets(10));
 		pane.setHgap(10);
@@ -75,56 +73,31 @@ public class MainApp extends Application{
 		
 		lbDec = new Label("Decimal");
 		txfNum1Dec = new TextField();
+		txfNum1Dec.setEditable(false);
 		txfNum2Dec= new TextField();
-		
-		
-		txfNum1Dec.textProperty().addListener((observable, oldValue, newValue) -> {
-			txfNum1Bin.setText(controller.convertBase10to2(newValue));
-			
-		});
-		
-		
-		txfNum2Dec.textProperty().addListener((observable, oldValue, newValue) -> {
-			txfNum2Bin.setText(controller.convertBase10to2(newValue));
-		});
+		txfNum2Dec.setEditable(false);
 		
 		
 		btnAdd = new Button("+");
 		btnAdd.setOnAction(event ->{
-			long input1,input2;
-			
-			input1 = Long.parseLong(txfNum1Bin.getText());
-			input2 = Long.parseLong(txfNum2Bin.getText());
-			
-			String result = controller.add(input1,input2);
+			String result = controller.add(Long.parseLong(txfNum1Bin.getText()), Long.parseLong(txfNum2Bin.getText()));
 			
 			setTextFields(result);
 		});
-		
 		
 		
 	
 		btnSub = new Button("-");
 		
 		btnSub.setOnAction(event ->{
-			long input1, input2;
-
-			input1 = Long.parseLong(txfNum2Bin.getText());
-			input2 = Long.parseLong(txfNum1Bin.getText());
-			
-			String result = controller.subtract(input1, input2);
+			String result = controller.subtract(Long.parseLong(txfNum2Bin.getText()), Long.parseLong(txfNum1Bin.getText()));
 			
 			setTextFields(result);
 		});
 		
 		btnMulti = new Button("*");
 		btnMulti.setOnAction(event ->{
-			long input1,input2;
-			
-			input1 = Long.parseLong(txfNum1Bin.getText());
-			input2 = Long.parseLong(txfNum2Bin.getText());		
-			
-			String result = controller.multiply(input1, input2);
+			String result = controller.multiply(Long.parseLong(txfNum1Bin.getText()),Long.parseLong(txfNum2Bin.getText()));
 			
 			setTextFields(result);
 		});
