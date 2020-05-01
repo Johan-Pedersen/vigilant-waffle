@@ -1,10 +1,13 @@
 package calculator.GUI;
 
 import calculator.Controller.Controller;
+import javafx.scene.control.TextFormatter;	
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -37,7 +40,7 @@ public class MainApp extends Application{
 
 	private TextField txfResultBin, txfNum1Bin, txfNum2Bin, txfNum1Dec, txfNum2Dec, txfResultDec;
 	private Label lbResultBin, lbResultDec, lbBin, lbDec; 
-	private Button btnAdd, btnSub, btnMulti, btnHistory;
+	private Button btnSum, btnSub, btnMulti, btnHistory;
 	
 	
 	private void setTextFields(String result) {
@@ -45,11 +48,44 @@ public class MainApp extends Application{
 		
 		txfNum1Dec.setText("" +controller.convertBase2To10(txfNum1Bin.getText()));
 		txfNum2Dec.setText("" +controller.convertBase2To10(txfNum2Bin.getText()));
-		
+
 		txfResultDec.setText("" +controller.convertBase2To10(result));
 		txfResultBin.setText(result);
 	}
+	/**
+	 * validerer input
+	 * @param input1
+	 * @param input2
+	 * @return
+	 */
+	private boolean isValid(String input1, String input2) {
+		boolean valid = true;
+		if(input1.length()<2 || input2.length()<2) {
+			valid = false;
+		}
+		
+		if(valid) {
+			//validerer input
+			for(int i = 0; i<input1.length(); i++) {
+				if(input1.charAt(i) != ' ' && input1.charAt(i) !='1' && input1.charAt(i) != '0') {
+					valid = false;
+					break;
+				}
+			}
+		}
+		
+		if(valid) {
+			for(int i = 0; i<input2.length(); i++) {
+				if(input2.charAt(i) != ' ' && input2.charAt(i) !='1' && input2.charAt(i) != '0') {
+					valid = false;
+					break;
+				}
+			}
 	
+		}
+				return valid;
+	}
+
 	
 	private void initContent(GridPane pane) {
 		pane.setGridLinesVisible(false);
@@ -88,22 +124,28 @@ public class MainApp extends Application{
 			txfNum2Bin.setText(controller.convertBase10to2(newValue));
 		});
 		
-		
-		btnAdd = new Button("+");
-		btnAdd.setOnAction(event ->{
-			long input1,input2;
+		btnSum= new Button("=");
+		btnSum.setOnAction(event ->{
 			
-			input1 = Long.parseLong(txfNum1Bin.getText());
-			input2 = Long.parseLong(txfNum2Bin.getText());
+			String input1 = txfNum1Bin.getText();
+			String input2 = txfNum2Bin.getText();
 			
-			String result = controller.add(input1,input2);
-			
-			setTextFields(result);
+			if(isValid(input1, input2)) {
+				String result = controller.Sum(input1, input2);
+				
+				setTextFields(result);
+				
+			}else {
+				Alert a = new Alert(AlertType.WARNING);
+				a.setContentText("Du har indtastet invalide tal");
+				 
+				 
+				 a.showAndWait();
+			}
 		});
 		
-		
-		
-	
+	/**
+
 		btnSub = new Button("-");
 		
 		btnSub.setOnAction(event ->{
@@ -116,17 +158,26 @@ public class MainApp extends Application{
 			
 			setTextFields(result);
 		});
-		
+		*/
 		btnMulti = new Button("*");
 		btnMulti.setOnAction(event ->{
-			long input1,input2;
+
 			
-			input1 = Long.parseLong(txfNum1Bin.getText());
-			input2 = Long.parseLong(txfNum2Bin.getText());		
+			String input1 = txfNum1Bin.getText();
+			String input2 = txfNum2Bin.getText();
 			
-			String result = controller.multiply(input1, input2);
-			
-			setTextFields(result);
+			if(isValid(input1, input2)) {
+				String result = controller.multiply(txfNum1Bin.getText(),txfNum2Bin.getText());
+				
+				setTextFields(result);
+				
+			}else {
+			Alert a = new Alert(AlertType.WARNING);
+			a.setContentText("Du har indtastet invalide tal");
+			 
+			 
+			 a.showAndWait();
+		}
 		});
 		
 		btnHistory = new Button("History");
@@ -150,7 +201,7 @@ public class MainApp extends Application{
 		
 		HBox hbButtons = new HBox();
 		hbButtons.setSpacing(20.0);
-		hbButtons.getChildren().addAll(btnAdd, btnSub, btnMulti);
+		hbButtons.getChildren().addAll(btnSum, btnMulti);
 		
 		
 		pane.add(lbResultBin, 0, 0);
