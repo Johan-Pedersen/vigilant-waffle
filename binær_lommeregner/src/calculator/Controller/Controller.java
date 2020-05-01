@@ -38,6 +38,19 @@ public class Controller {
 		return Utilities.removeLeadingZeros(calculation);
 	}
 	
+	public String convertBase10to2(String base10) {
+		
+		StringBuilder sb = new StringBuilder();
+		long longInput = Long.parseLong(base10);
+		
+		long[] longArr = converter.base10to2(longInput);
+		
+		for(long l : longArr) {
+			sb.append(l);
+		}
+		return sb.toString();
+	}
+	
 	public Storage getStorage() {
 		return storage;
 	}
