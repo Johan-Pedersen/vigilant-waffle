@@ -1,8 +1,9 @@
 package calculator.Controller;
+import calculator.Logic.Base10And2Converter;
+//import calculator.Logic.BinCalculator_old;
 import calculator.Logic.BinCalculator;
 import calculator.Storage.Storage;
-import calculator.Logic.Base10And2Converter;
-
+import calculator.Logic.Utilities;
 
 public class Controller {
 	
@@ -10,44 +11,40 @@ public class Controller {
 	private Base10And2Converter converter = new Base10And2Converter();
 	private Storage storage = Storage.getInstance();
 	
-	public String add(long num1, long num2) {
-		String calculation = calculator.addBinaryNumber(num1, num2);
+	public String Sum(String num1, String num2) {
+		
+		String[] formattetInput = Utilities.format(num1, num2);
+		String calculation = calculator.SumTwosComplement(formattetInput[0], formattetInput[1]);
 		storage.addCalculation(calculation);
-		return calculation;
+		return Utilities.removeLeadingZeros(calculation);
 	}
 	
-	public String subtract(long num1, long num2) {
+	/**
+	public String subtract(String num1, String num2) {
 		
-		String calculation = calculator.subtractBinaryNumber(num1, num2);
+		String calculation = calculator.SumTwosComplement(num1, num2);
 		storage.addCalculation(calculation);
 		return calculation;
 		
 	}
-	
-	public String multiply(long num1, long num2) {
-		String calculation = calculator.multiplication(num1, num2);
+	*/
+	public String multiply(String num1, String num2) {
+		
+		
+		String[] formattetInput = Utilities.format(num1, num2);
+		String calculation = calculator.multiplication(formattetInput[0], formattetInput[1]);
 		
 		storage.addCalculation(calculation);
-		return calculation;
-	}
-	
-	public long convertBase2To10(String base2) {
-		
-		char[] tempArr = base2.toCharArray();
-		
-		long[] intArr = new long[tempArr.length];
-		
-		for(int i = 0; i<tempArr.length; i++) {
-			
-			intArr[i] = Character.getNumericValue(tempArr[i]);
-		}
-		
-		
-		return converter.base2To10(intArr);
+		return Utilities.removeLeadingZeros(calculation);
 	}
 	
 	public Storage getStorage() {
 		return storage;
+	}
+	
+	public long convertBase2To10(String num) {
+		return converter.base2To10(num);
+	
 	}
 	
 	
