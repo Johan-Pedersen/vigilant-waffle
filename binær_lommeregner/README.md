@@ -7,3 +7,4 @@ Notes for using it:
 -It uses a signbit to describe positiv and negativ numbers. So a "0" in front means positiv and a "1" in front means negativ.
 -Therefore the length of a input is at least 2 and also if you want to write the equivalent of decimal "0", you should enter "00" 
 (+zero). 
+-Signbits are not used for division
