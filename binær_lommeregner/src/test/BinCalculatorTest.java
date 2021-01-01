@@ -105,9 +105,20 @@ class BinCalculatorTest {
 		result = controller.multiply("10011", "10011");
 		assertEquals("01001", result);
 		
+	}
+	
+	@Test
+	void testDivision() {
 		
+		String result = controller.divide("00011", "00011");
+		assertEquals("01", result);
+	    
+		//-147 / 7 = -21
+	    result = controller.divide("110010011", "0111");
+		assertEquals("110101", result);
 		
-		
+	    result = controller.divide("011", "011");
+		assertEquals("01", result);
 	}
 
 }

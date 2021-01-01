@@ -36,9 +36,15 @@ public class Base10And2Converter {
 public String base10To2(String num) {
 	
 	ArrayList<Long> result = new ArrayList<Long>();
-	long base10 = Long.parseLong(num);
+	long base10 = 0;
+		
+	if(num.charAt(0) == '-') {
+	    base10 = Long.parseLong(num.substring(1));
+	}else {
+	    base10 = Long.parseLong(num);
+	}
 	
-	if(base10 == 0) return "0";
+	if(base10 == 0) return "00";
 	
 	while(base10> 0) {
 		 result.add(0,base10%2);
@@ -48,7 +54,10 @@ public String base10To2(String num) {
 	}
 	String str = result.toString();
 	
-	return str.substring(1, str.length()-1).replace(", ", "");
+	if(num.charAt(0)=='-') {
+	    return "1"+str.substring(1, str.length()-1).replace(", ", "");
+	}else
+	    return "0"+str.substring(1, str.length()-1).replace(", ", "");
 	}
 
 

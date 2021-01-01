@@ -8,7 +8,6 @@ public class BinCalculator {
 	
 	
 	
-	
 	/**
 	 * Lægger 2 binære tal sammen. 
 	 * Hvis et af tallene er negative, skal dette tal converetes via 2's complement.
@@ -154,14 +153,14 @@ public class BinCalculator {
 		
 		//Hvis resultatet er negativt tages 2's complement af resultatet,
 		//for at konvertere det fra 2's complement form og til normal binær form
-		
+		String addedResult2 = addedResult;
 		if(needShortening) {
-			addedResult = addedResult.replaceFirst("01", "0");
+			addedResult2 = addedResult.replaceFirst("01", "0");
 		}
 		if(isNegativ) {
 			return twosComplement(addedResult);
 		}
-		return addedResult;
+		return addedResult2;
 			
 		}
 	
@@ -254,4 +253,54 @@ public class BinCalculator {
 		return (temp1^temp2) +""+ result;
 			
 		}
+	
+	
+	//We take signbits into account
+	//If either input is negativ (1 as sign bit) we need to add a negativ signbit in the end
+	
+	
+	public String division(String divident, String divisor) {
+		int counter = 0;
+		Base10And2Converter converter = new Base10And2Converter();
+		
+		/*
+		 * Why convert divident and divisor to positive:
+		 * 
+		 * (For the while loop) bc we need to know if the divident can be dividet at least one more time. 
+		 * And to know that we need to compare the absolute / positiv value
+		 *  of the divident and the divisor.
+		 *  
+		 *  
+		 * 
+		 */
+//		long dividentLong = converter.base2To10("0"+divident);
+//		long divisorLong = converter.base2To10("0"+divisor);
+		
+		long dividentLong = converter.base2To10(divident);
+		long divisorLong = converter.base2To10(divisor);
+		
+		
+		
+		while (Math.abs(dividentLong)>=Math.abs(divisorLong)) {
+		    
+		    String dividentLongToString = Long.toString(dividentLong);
+		    String dividentLongConvertet = converter.base10To2(dividentLongToString);
+		    
+		    //sikre at dividentLong og divisor er lige lange og sikre at divisor er negativt,
+		    //så det bliver trukket fra divident
+		    
+		    
+		    
+		    //Vi skal ikke tilføje et nyt tal foran, vi skal erstatte den signbit som allerede er der
+		    //Fordi ellers bliver signbitten en del af tallet.
+		    String[] formattet = Utilities.format("0"+dividentLongConvertet.substring(1), "1"+divisor.substring(1));
+		    String twosComplement = SumTwosComplement(formattet[0], formattet[1]);
+		    
+		    dividentLong = converter.base2To10(twosComplement);
+			
+			counter ++;
+		}
+		
+		return converter.base10To2(Integer.toString(counter));
+	}
 }

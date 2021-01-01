@@ -38,6 +38,18 @@ public class Controller {
 		return Utilities.removeLeadingZeros(calculation);
 	}
 	
+	
+	public String divide(String divident, String divisor) {
+		
+		
+		String[] formattetInput = Utilities.format(divident, divisor);
+		String calculation = calculator.division(formattetInput[0], formattetInput[1]);
+		
+		storage.addCalculation(calculation);
+		return Utilities.removeLeadingZeros(calculation);
+	}
+	
+	
 	public Storage getStorage() {
 		return storage;
 	}

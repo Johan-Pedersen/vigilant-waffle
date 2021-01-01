@@ -41,7 +41,7 @@ public class MainApp extends Application{
 	
 	private TextField txfResultBin, txfNum1Bin, txfNum2Bin, txfNum1Dec, txfNum2Dec, txfResultDec;
 	private Label lbResultBin, lbResultDec, lbBin, lbDec; 
-	private Button btnSum, btnSub, btnMulti, btnHistory;
+	private Button btnSum, btnSub, btnMulti, btnHistory, btnDivide;
 	
 	private void setTextFields(String result) {
 		txfNum1Dec.setText("" +controller.convertBase2To10(txfNum1Bin.getText()));
@@ -132,6 +132,25 @@ public class MainApp extends Application{
 				 
 				 a.showAndWait();
 			}
+		});	
+		
+		btnDivide= new Button("/");
+		btnDivide.setOnAction(event ->{
+			
+			String input1 = txfNum1Bin.getText();
+			String input2 = txfNum2Bin.getText();
+			
+			if(isValid(input1, input2)) {
+				String result = controller.divide(input1, input2);
+				
+				setTextFields(result);
+				
+			}else {
+				Alert a = new Alert(AlertType.WARNING);
+				a.setContentText("Du har indtastet invalide tal");
+				 
+				 a.showAndWait();
+			}
 		});
 		
 	/**
@@ -184,7 +203,7 @@ public class MainApp extends Application{
 		
 		HBox hbButtons = new HBox();
 		hbButtons.setSpacing(20.0);
-		hbButtons.getChildren().addAll(btnSum, btnMulti);
+		hbButtons.getChildren().addAll(btnSum, btnMulti, btnDivide);
 		
 		
 		pane.add(lbResultBin, 0, 0);
